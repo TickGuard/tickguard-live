@@ -362,9 +362,7 @@ footer a:hover {
         
         try {
             const response = await fetch(url);
-            console.log(response)
             const data = await response.json();
-            console.log(data);
 
             spinner.style.display = "none";   // ⭐ HIDE SPINNER ON SUCCESS
 
@@ -377,7 +375,6 @@ footer a:hover {
 
             const levelBox = document.getElementById("riskLevel");
             const score = data.risk_score;
-            console.log(score);
 
             let levelText = "";
             let levelClass = "";
