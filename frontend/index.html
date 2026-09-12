@@ -344,14 +344,16 @@ footer a:hover {
     async function getRiskScore() {
         const address = document.getElementById("address").value;
         const month = document.getElementById("month").value;
-        console.log(month)
+        console.log(month);
+        const intmonth = parseInt(month);
+        console.log(intmonth);
 
         if (!address) {
             alert("Please enter an address.");
             return;
         }
 
-        //const url = `http://localhost:8000/api/v1/risk/address?address=${encodeURIComponent(address)}&month=${month}`;
+        //const url = `http://localhost:8000/api/v1/risk/address?address=${encodeURIComponent(address)}&month=${intmonth}`;
         const url = 'https://tickguard-backend.onrender.com/api/v1/risk/address?address=${encodeURIComponent(address)}&month=${month}`;'
         
         try {
