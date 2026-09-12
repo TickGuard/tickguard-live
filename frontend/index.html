@@ -346,15 +346,18 @@ footer a:hover {
 
 <script>
     async function getRiskScore() {
+        const spinner = document.getElementById("spinner");
+        spinner.style.display = "block";   // ⭐ SHOW SPINNER
+
         const address = document.getElementById("address").value;
         const month = document.getElementById("month").value;
 
         if (!address) {
+            spinner.style.display = "none";   // hide spinner if no address
             alert("Please enter an address.");
             return;
         }
 
-        //const url = `https://tickguard-backend.onrender.com/api/v1/risk/address?address=${encodeURIComponent(address)}&month=${month}`;
         const url = `https://tickguard-backend.onrender.com/api/v1/risk/address?address=${encodeURIComponent(address)}&month=${month}`;
         
         try {
@@ -362,6 +365,8 @@ footer a:hover {
             console.log(response)
             const data = await response.json();
             console.log(data);
+
+            spinner.style.display = "none";   // ⭐ HIDE SPINNER ON SUCCESS
 
             document.getElementById("resultText").innerHTML =
                 `<strong>Address:</strong> ${data.address}<br>
@@ -394,6 +399,8 @@ footer a:hover {
             document.getElementById("result").style.display = "block";
 
         } catch (error) {
+            spinner.style.display = "none";   // ⭐ HIDE SPINNER ON ERROR
+
             document.getElementById("resultText").innerHTML =
                 "Error fetching risk score. Is the backend running?" + error.message;
             document.getElementById("result").style.display = "block";
