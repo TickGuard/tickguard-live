@@ -354,7 +354,7 @@ footer a:hover {
         const url = 'https://tickguard-backend.onrender.com/api/v1/risk/address?address=${encodeURIComponent(address)}&month=${month}`;'
         
         try {
-            console.log("Requesting 
+            console.log("Requesting url");
             const response = await fetch(url);
             const data = await response.json();
 
