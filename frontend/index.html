@@ -351,9 +351,10 @@ footer a:hover {
         }
 
         //const url = `http://localhost:8000/api/v1/risk/address?address=${encodeURIComponent(address)}&month=${month}`;
-        const url = 'https://tickguard-backend.onrender.com/'
+        const url = 'https://tickguard-backend.onrender.com:10000/api/v1/risk/address?address=${encodeURIComponent(address)}&month=${month}`;'
         
         try {
+            console.log("Requesting 
             const response = await fetch(url);
             const data = await response.json();
 
