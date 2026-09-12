@@ -3,6 +3,8 @@ import requests
 import os
 from dotenv import load_dotenv
 
+geocode_cache = {}
+    
 load_dotenv()  # Load .env file
 
 print("Loaded API key:", os.getenv("OPENCAGE_API_KEY"))
@@ -52,6 +54,11 @@ def geocode_address_internal(address: str) -> dict:
     without making an HTTP request.
     Uses the same OpenCage logic as the public route.
     """
+
+    # 1. Check cache first
+    if address in geocode_cache:
+        return geocode_cache[address]
+
     OPENCAGE_API_KEY = os.getenv("OPENCAGE_API_KEY")
 
     if not OPENCAGE_API_KEY:
@@ -80,7 +87,12 @@ def geocode_address_internal(address: str) -> dict:
 
     location = data["results"][0]["geometry"]
 
-    return {
+    result = {
         "latitude": location["lat"],
         "longitude": location["lng"]
     }
+
+    # 2. Store in cache
+    geocode_cache[address] = result
+
+    return result
