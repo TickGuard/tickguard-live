@@ -357,90 +357,92 @@ footer a:hover {
 </footer>
 
 <script>
-   async function getRiskScore() {
-    const loadingText = document.getElementById("loadingText");
+    async function getRiskScore() {
+        const loadingText = document.getElementById("loadingText");
 
-    // ⭐ SHOW TEXT CYCLING LOADER
-    loadingText.style.display = "block";
+        // ⭐ SHOW TEXT CYCLING LOADER
+        loadingText.style.display = "block";
 
-    const messages = [
-        "Gathering tick data…",
-        "Checking regional species…",
-        "Analyzing environment…",
-        "Calculating risk score…"
-    ];
-    let i = 0;
+        const messages = [
+            "Gathering tick data…",
+            "Checking regional species…",
+            "Analyzing environment…",
+            "Calculating risk score…"
+        ];
+        let i = 0;
 
-    // ⭐ Start cycling messages
-    const cycleInterval = setInterval(() => {
-        loadingText.innerText = messages[i];
-        i = (i + 1) % messages.length;
-    }, 900);
+        // ⭐ Start cycling messages
+        const cycleInterval = setInterval(() => {
+            loadingText.innerText = messages[i];
+            i = (i + 1) % messages.length;
+        }, 900);
 
-    const address = document.getElementById("address").value;
-    const month = document.getElementById("month").value;
+        const address = document.getElementById("address").value;
+        const month = document.getElementById("month").value;
 
-    if (!address) {
-        clearInterval(cycleInterval);
-        loadingText.style.display = "none";
-        alert("Please enter an address.");
-        return;
-    }
-
-    if (!month) {
-    clearInterval(cycleInterval);
-    loadingText.style.display = "none";
-    alert("Please select a month.");
-    return;
-}
-
-    const url = `https://tickguard-backend.onrender.com/api/v1/risk/address?address=${encodeURIComponent(address)}&month=${month}`;
-
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        clearInterval(cycleInterval);
-        loadingText.style.display = "none";
-
-        document.getElementById("resultText").innerHTML =
-            `<strong>Address:</strong> ${data.address}<br>
-             <strong>Latitude:</strong> ${data.latitude}<br>
-             <strong>Longitude:</strong> ${data.longitude}<br>
-             <strong>Month:</strong> ${data.month}<br>
-             <strong>Risk Score:</strong> ${data.risk_score}`;
-
-        const levelBox = document.getElementById("riskLevel");
-        const score = data.risk_score;
-
-        let levelText = "";
-        let levelClass = "";
-
-        if (score < 0.33) {
-            levelText = "LOW RISK";
-            levelClass = "risk-level low";
-        } else if (score < 0.66) {
-            levelText = "MEDIUM RISK";
-            levelClass = "risk-level medium";
-        } else {
-            levelText = "HIGH RISK";
-            levelClass = "risk-level high";
+        // ⭐ Address validation
+        if (!address) {
+            clearInterval(cycleInterval);
+            loadingText.style.display = "none";
+            alert("Please enter an address.");
+            return;
         }
 
-        levelBox.className = levelClass;
-        levelBox.innerText = `${levelText} (${score.toFixed(2)})`;
+        // ⭐ Month validation (NEW)
+        if (!month) {
+            clearInterval(cycleInterval);
+            loadingText.style.display = "none";
+            alert("Please select a month.");
+            return;
+        }
 
-        document.getElementById("result").style.display = "block";
+        const url = `https://tickguard-backend.onrender.com/api/v1/risk/address?address=${encodeURIComponent(address)}&month=${month}`;
 
-    } catch (error) {
-        clearInterval(cycleInterval);
-        loadingText.style.display = "none";
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
 
-        document.getElementById("resultText").innerHTML =
-            "Error fetching risk score. Is the backend running?" + error.message;
-        document.getElementById("result").style.display = "block";
+            clearInterval(cycleInterval);
+            loadingText.style.display = "none";
+
+            document.getElementById("resultText").innerHTML =
+                `<strong>Address:</strong> ${data.address}<br>
+                 <strong>Latitude:</strong> ${data.latitude}<br>
+                 <strong>Longitude:</strong> ${data.longitude}<br>
+                 <strong>Month:</strong> ${data.month}<br>
+                 <strong>Risk Score:</strong> ${data.risk_score}`;
+
+            const levelBox = document.getElementById("riskLevel");
+            const score = data.risk_score;
+
+            let levelText = "";
+            let levelClass = "";
+
+            if (score < 0.33) {
+                levelText = "LOW RISK";
+                levelClass = "risk-level low";
+            } else if (score < 0.66) {
+                levelText = "MEDIUM RISK";
+                levelClass = "risk-level medium";
+            } else {
+                levelText = "HIGH RISK";
+                levelClass = "risk-level high";
+            }
+
+            levelBox.className = levelClass;
+            levelBox.innerText = `${levelText} (${score.toFixed(2)})`;
+
+            document.getElementById("result").style.display = "block";
+
+        } catch (error) {
+            clearInterval(cycleInterval);
+            loadingText.style.display = "none";
+
+            document.getElementById("resultText").innerHTML =
+                "Error fetching risk score. Is the backend running?" + error.message;
+            document.getElementById("result").style.display = "block";
+        }
     }
-}
 
     function toggleDisclaimer() {
         const box = document.getElementById("disclaimerBox");
