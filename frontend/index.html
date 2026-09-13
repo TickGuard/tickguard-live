@@ -387,6 +387,13 @@ footer a:hover {
         return;
     }
 
+    if (!month) {
+    clearInterval(cycleInterval);
+    loadingText.style.display = "none";
+    alert("Please select a month.");
+    return;
+}
+
     const url = `https://tickguard-backend.onrender.com/api/v1/risk/address?address=${encodeURIComponent(address)}&month=${month}`;
 
     try {
