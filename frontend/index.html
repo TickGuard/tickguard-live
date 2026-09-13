@@ -293,23 +293,27 @@ footer a:hover {
 
     <button onclick="getRiskScore()">Get Risk Score</button>
 
+    <!-- ⭐ NEW TEXT CYCLING LOADER (appears under the button) -->
+    <div id="loadingText" class="loading-cycle" style="display:none; margin-top:12px;">
+        Gathering tick data…
+    </div>
+
     <div id="result">
         <h3>Risk Score Result</h3>
         <p id="resultText"></p>
         <div id="riskLevel" class="risk-level"></div>
 
-        <!-- ⭐ Disclaimer Toggle -->
         <div class="disclaimer-toggle" onclick="toggleDisclaimer()">
             <div class="info-icon">i</div>
             <span>Important information about this score</span>
         </div>
 
-        <!-- ⭐ Disclaimer Box -->
         <div id="disclaimerBox" class="disclaimer-box">
             <strong>Disclaimer:</strong> TickGuard provides an environmental risk estimate based on seasonality, regional factors, and habitat suitability. It does not detect ticks, guarantee safety, or replace professional guidance. Always use appropriate tick prevention measures and consult a professional for medical or veterinary concerns.
         </div>
     </div>
 </div>
+
 
 <!-- ⭐ Risk Level Breakdown Section -->
 <div class="risk-info">
