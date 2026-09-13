@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact – TickGuard Labs</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f5f7fa; color: #333; }
+    h1 { color: #0a3d62; }
+    a { color: #0a3d62; }
+  </style>
+</head>
+<body>
+  <h1>Contact</h1>
+  <p>This is the contact page for TickGuard Labs.</p>
+  <p>You can reach us at:<br>
+    <a href="mailto:Keith@TickGuardLabs.com">Keith@TickGuardLabs.com</a>
+  </p>
+</body>
+</html>
