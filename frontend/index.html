@@ -373,6 +373,11 @@ footer a:hover {
         // ⭐ SHOW TEXT CYCLING LOADER
         loadingText.style.display = "block";
 
+gtag('event', 'get_risk_score_click', {
+    event_category: 'engagement',
+    event_label: 'Get Risk Score Button'
+});
+
         const messages = [
             "Gathering tick data…",
             "Checking regional species…",
